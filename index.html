@@ -21,7 +21,6 @@ $(function() {
   });
 
   // Simple evented example.
-  $("span.graph").peity('pie');
 
   $("select").change(function(){
     $(this)
@@ -34,8 +33,9 @@ $(function() {
       "Chart updated: " + value
     );
   };
+  
+  $("span.graph").peity('pie').bind("chart:changed", chartUpdate);
 
-  $("span.graph").bind("chart:changed", chartUpdate);
 });
 </script>
 </head>
@@ -226,8 +226,7 @@ $(function() {
     <div class="javascript">
       <h4>Javascript</h4>
 
-      <pre><code class="javascript">$("span.graph").peity('pie');
-
+      <pre><code class="javascript">
 $("select").change(function(){
   $(this)
     .siblings("span.graph")
@@ -240,23 +239,39 @@ var chartUpdate = function(event, value, max) {
   );
 };
 
-$("span.graph").bind("chart:changed", chartUpdate);</code></pre>
+$("span.graph")
+  .peity('pie')
+  .bind("chart:changed", chartUpdate);</code></pre>
     </div>
   </div>
   <h2>Bar charts</h2>
   
+  <p>
+    Peity comes with a few chart types (and you can add your own). For bar charts just use the 'bar' argument and have your data be a comma separated list of digits.
+  </p>
   <span class="barchart">1,10,2,3,12,2,5,9,8,7,3,4,5</span>
+  <div class="html">
+    <h4>HTML</h4>
+    <pre><code class="html">&lt;span class="barchart"&gt;1,10,2,3,12,2,5,9,8,7,3,4,5&lt;/span&gt;</code></pre>
+  </div>
+  
+  <div class="javascript">
+    <h4>Javascript</h4>
+    <pre><code class="javascript">$('.barchart').peity('bar', {colour:'green'});</code></pre>
+  </div>
   
   <script type="text/javascript" charset="utf-8">
-    $('.barchart').peity('bar');
+    $('.barchart').peity('bar', {colour:'green'});
   </script>
+  
   <h2>Defaults</h2>
 
   <p>Default can be overridden like so:</p>
 
-  <pre><code class="javascript">$.fn.peity.defaults.colours = ["#CEE9FC", "#334F63"];
-$.fn.peity.defaults.delimeter = ":";
-$.fn.peity.defaults.radius = 42;</code></pre>
+  <pre><code class="javascript">$.fn.peity.defaults.pie.colours = ["#CEE9FC", "#334F63"];
+$.fn.peity.defaults.pie.delimeter = ":";
+$.fn.peity.defaults.pie.radius = 42;
+$.fn.peity.defaults.bar.colour = "#3300ee";</code></pre>
 </div>
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
